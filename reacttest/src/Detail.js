@@ -71,7 +71,7 @@ function Detail() {
             <Button 
                 variant="danger"
                 onClick={deleteHandler}>Delete
-            </Button> 
+            </Button>
         </div>
         
     )

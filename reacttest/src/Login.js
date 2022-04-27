@@ -1,6 +1,7 @@
 import {useState, createRef} from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
 import Home from "./Home.js";
 function Login() {
     const idInput = createRef();
@@ -52,31 +53,35 @@ function Login() {
         return (
             <div className='login_page'>
                 <div className='login_container'>
-                <h2>로그인</h2>
                     <div className="login_wrapper">
-                        <div className='id_wrapper'>
-                            <input 
-                                id='id'
-                                name="id"
-                                placeholder="아이디를 입력해주세요"
+                    <Form>
+                        <Form.Group className="id_wrapper" controlId="id">
+                            <Form.Label>ID</Form.Label>
+                            <Form.Control 
+                                type="text"
+                                name="id" 
+                                placeholder="아이디를 입력해주세요" 
                                 onChange={onChange}
                                 value={account.id}
                                 ref={idInput}
                             />
-                        </div>
-                        <div className="password_wrapper">
-                            <input 
-                                id='password'
+                        </Form.Group>
+                        <Form.Group className="pw_wrapper" controlId="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control 
+                                type="password" 
                                 name="password"
-                                type="password"
-                                placeholder='비밀번호를 입력해주세요'
+                                placeholder="비밀번호를 입력해주세요" 
                                 onChange={onChange}
                                 value={account.password}
                                 ref={pwInput}
                             />
-                        </div>
-                        <button onClick={toRegister}>register</button>
-                        <button onClick={onSubmit}>login</button>
+                        </Form.Group>
+                    </Form>
+                    <div className='btn'>
+                        <Button onClick={toRegister}>register</Button>
+                        <Button className="login_btn"onClick={onSubmit}>login</Button>
+                    </div>
                     </div>
                 </div>
             </div>

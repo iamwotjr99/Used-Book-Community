@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { Form, Button } from 'react-bootstrap';
 function Join() {
 
   const [account, setAccount] = useState({
@@ -63,34 +63,41 @@ function Join() {
     return (
     <div>
         <div className='join_container'>
-          <h2>회원가입</h2>
           <div className="join_wrapper">
-            <input 
-              id='name'
-              name='name'
-              placeholder='이름을 입력해주세요'
-              onChange={onChangeAccount}
-              value={account.name}
-            />
-            <div className='id_wrapper'>
-              <input 
-                id='id'
-                name="id"
-                placeholder="아이디를 입력해주세요"
-                onChange={onChangeAccount}
-                value={account.id}
-              />
-              <button onClick={checkID}>중복확인</button>
-            </div>
-            <input 
-              id='password'
-              name="password"
-              type="password"
-              placeholder='비밀번호를 입력해주세요'
-              onChange={onChangeAccount}
-              value={account.password}
-            />
-            <button onClick={postAccount}>가입하기</button>
+            <Form>
+              <Form.Group className="name_wrapper" controlId="name">
+                <Form.Label>Name</Form.Label>
+                <Form.Control 
+                  type="text"
+                  name="name" 
+                  placeholder="이름을 입력해주세요" 
+                  onChange={onChangeAccount}
+                  value={account.name}
+                />
+             </Form.Group>
+             <Form.Group className="id_wrapper" controlId="id">
+                <Form.Label>ID</Form.Label>
+                <Form.Control 
+                  type="text"
+                  name="id" 
+                  placeholder="아이디를 입력해주세요" 
+                  onChange={onChangeAccount}
+                  value={account.id}
+                />
+             </Form.Group>
+             <Button size="sm" onClick={checkID}>중복확인</Button>
+             <Form.Group className="password_wrapper" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control 
+                  type="password"
+                  name="password" 
+                  placeholder="비밀번호를 입력해주세요" 
+                  onChange={onChangeAccount}
+                  value={account.password}
+                />
+             </Form.Group>
+            </Form>
+            <Button onClick={postAccount}>가입하기</Button>
           </div>
         </div>
     </div>

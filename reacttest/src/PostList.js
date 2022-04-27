@@ -10,7 +10,7 @@ function PostList({postList}) {
     }
     const list = postList.map((item, index) => 
     (
-        <ListGroupItem key={index} onClick={onClickListener}
+        <ListGroupItem className="postListGroup" key={index} onClick={onClickListener}
             data_id={item._id}>
             <div className="postList_container" data_id={item._id}>
                 <div className="title_wrapper" data_id={item._id}>

@@ -2,11 +2,19 @@ import express from 'express';
 import router from './router.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import jwtMiddleware from './lib/src/jwtMiddelware.js';
 const app = express();
 const port = 8000;
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000/",
+    methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
+//app.use(jwtMiddleware);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use('/', router);

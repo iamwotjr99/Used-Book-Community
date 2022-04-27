@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Join() {
-  const baseURL = "http://localhost:8000";
 
   const [account, setAccount] = useState({
     name: "",
     id: "",
     password: "",
   });
+  const navigate = useNavigate();
+  let checkState = 0;
 
   const onChangeAccount = (e) => {
     setAccount({
@@ -17,25 +19,8 @@ function Join() {
     });
   }
 
-  const postAccount = async () => {
-    axios.post(`${baseURL}/auth/register`, {
-      name: account.name,
-      id: account.id,
-      password: account.password
-    }).then((res) =>  {
-      console.log(res);
-    }).catch((error) => {
-      console.log(error);
-    });
-    setAccount({
-      name: "",
-      id: "",
-      password: "",
-    })
-  }
-
   const checkID = async () => {
-    axios.get(`${baseURL}/checkID`, {
+    axios.get("checkID", {
       params : {
         id: account.id,
       }
@@ -43,12 +28,35 @@ function Join() {
       console.log("from URL checkID: ", res);
       if(res.data === "") {
         alert("사용하실 수 있는 아이디입니다.");
+        checkState = 1;
       } else {
         alert("사용하실 수 없는 아이디입니다.");
       }
     }).catch((error) => {
       console.log(error);
     })
+  }
+
+  const postAccount = async () => {
+    if(checkState === 1) {
+      axios.post("register", {
+        name: account.name,
+        id: account.id,
+        password: account.password
+      }).then((res) =>  {
+        console.log(res);
+        navigate('/');
+      }).catch((error) => {
+        console.log(error);
+      });
+      setAccount({
+        name: "",
+        id: "",
+        password: "",
+      })
+    } else {
+      alert("please check your ID");
+    }
   }
 
 

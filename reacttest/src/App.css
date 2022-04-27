@@ -1,5 +1,7 @@
-.App {
-  text-align: center;
+body {
+  background-color: #a0a0a0;
+  height: 100%;
+  width: 100%;
 }
 
 /* 회원가입 */
@@ -49,70 +51,11 @@
   height: 25px;
 }
 
-/* 상단 메뉴 바 */
-.menu_Bar {
-  display: flex;
-  border-bottom: 2px solid black;
-}
-
-.menu_Bar .btn_back {
-  text-align: center;
-  margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 10px;
-  background-color: white; 
-  color: black;
-  border: none;
-  font-size: 1.1em;
-  cursor: pointer;
-}
-
-.menu_Bar .btn_home {
-  text-align: center;
-  margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 10px;
-  background-color: white; 
-  color: black;
-  border: none;
-  font-size: 1.1em;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.menu_Bar .btn_join {
-  text-align: center;
-  margin-left: auto;
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 10px;
-  background-color: white; 
-  color: black;
-  border: none;
-  font-size: 1.1em;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.menu_Bar .btn_login {
-  text-align: center;
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 10px;
-  background-color: white; 
-  color: black;
-  border: none;
-  font-size: 1.1em;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 /* 로그인 */
 .login_container {
+  background-color: white;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 3px;
   display: inline-block;
   width: 500px;
   align-items: center;
@@ -131,6 +74,7 @@
 
 .login_wrapper button {
   width: 190px;
+  margin-left: 10px;
 }
 
 .login_wrapper .id_wrapper {
@@ -146,4 +90,136 @@
   width: 80px;
   margin-left: 10px;
   height: 25px;
+}
+
+/* menu */
+.nav_container {
+  display: flex;
+  width: 700px;
+}
+.nav {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.btn_back {
+  text-align: center;
+  margin-right: auto;
+  width: 10px;
+  height: 30px;
+  background-color: white;
+  border-color: white;
+  border-style: none;
+  font-size: 20px;
+  margin-left: 0px;
+}
+
+.btn_back:hover {
+  cursor: pointer;
+}
+
+.btn_logout {
+  margin-right: auto;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  background-color:#46B8FF;
+  border-color: white;
+  border-style: none;
+  font-size: 20px;
+  margin-right: 10px;
+  color:white;
+  border-radius: 10px;
+  transition: background-color 2s;
+}
+
+.btn_logout:hover {
+  background-color: #0000FF;
+  cursor: pointer;
+}
+
+.btn_add {
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  background-color: #3CB371;
+  border-color: white;
+  border-style: none;
+  font-size: 20px;
+  color:white;
+  border-radius: 10px;
+  transition: background-color 2s;
+  margin-left: auto;
+}
+
+.btn_add:hover {
+  background-color: #006400;
+  cursor: pointer;
+}
+
+/* home */
+.home {
+  display: flex;
+  justify-content: center;
+}
+
+.home_container {
+  background-color: white;
+  border-radius: 3px;
+  width: 700px;
+  padding-bottom: 20px;
+  margin-top: 100px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.userName_wrapper {
+  margin-bottom: 10px;
+}
+
+/* PostList */ 
+.description_wrapper {
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Add */
+.Add {
+  display: flex;
+  justify-content: center;
+}
+
+.add_wrapper {
+  background-color: white;
+  border-radius: 3px;
+  width: 700px;
+  padding-bottom: 20px;
+  margin-top: 100px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.add_container {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  height: 100%;
+}
+
+.add_container input {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.select_wrapper {
+  margin-bottom: 10px;
 }

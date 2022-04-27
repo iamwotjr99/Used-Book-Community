@@ -1,21 +1,21 @@
 import './App.css';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
-import Nav from "./Nav.js";
 import Join from "./Join.js";
 import Login from "./Login.js";
-import Home from "./Home.js";
+import Add from "./Add.js";
+import Detail from './Detail';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Nav/>
-          <Routes>
-            <Route path="/join" element={<Join />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Home/>} />
-          </Routes>
+        <Routes>
+          <Route path="/join" element={<Join />} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/add" element={<Add/>}/>
+          <Route path="/detail/:post_id" element={<Detail/>}/>
+        </Routes>
       </div>
     </BrowserRouter>
   );

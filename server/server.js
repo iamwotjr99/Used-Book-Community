@@ -3,7 +3,6 @@ import router from './router.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import jwtMiddleware from './lib/src/jwtMiddelware.js';
 const app = express();
 const port = 8000;
 

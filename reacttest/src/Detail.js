@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
+import Nav from './Nav.js';
 function Detail() {
     const [post, setPost] = useState({
         userName: "",
@@ -12,6 +13,9 @@ function Detail() {
         description: "",
         created_date: "",
     });
+
+    const [userId, setUserId] = useState("");
+    const [authorId, setAuthorId] = useState("");
 
     const params = useParams();
 
@@ -36,42 +40,67 @@ function Detail() {
     }
 
     useEffect(() => {
-        axios.get('/get/postinfo', {
-            params: {
-                postId : params.post_id,
-            }
-        }).then((res) => {
-            console.log(res);
-            setPost({
-                ...post,
-                userName: res.data.userName,
-                bookName: res.data.bookName,
-                price: res.data.price,
-                title: res.data.title,
-                description: res.data.description,
-                created_date: res.data.created_date,
+        async function getUserInfo() {
+            await axios.get('/userinfo').then((res) => {
+                console.log(res);
+                setUserId(res.data.userId);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+
+        async function getPostInfo() {
+            await axios.get('/get/postinfo', {
+                params: {
+                    postId : params.post_id,
+                }
+            }).then((res) => {
+                console.log(res);
+                setPost({
+                    ...post,
+                    userName: res.data.userName,
+                    bookName: res.data.bookName,
+                    price: res.data.price,
+                    title: res.data.title,
+                    description: res.data.description,
+                    created_date: res.data.created_date,
+                })
+                setAuthorId(res.data.authorId);
+            }).catch((err) => {
+                console.log(err);
             })
-        }).catch((err) => {
-            console.log(err);
-        })
+        }
+        getUserInfo();
+        getPostInfo();
     }, [params.post_id])
 
     return (
-        <div>
-            <div>{post.userName}</div>
-            <div>{post.bookName}</div>
-            <div>{post.price}</div>
-            <div>{post.title}</div>
-            <div>{post.description}</div>
-            <div>{post.created_date}</div>
-            <Button 
-                variant="warning"
-                onClick={toEditHandler}>Edit
-            </Button>
-            <Button 
-                variant="danger"
-                onClick={deleteHandler}>Delete
-            </Button>
+        <div className='detail_wrapper'>
+            <Nav btn_back={true} btn_logout={false} btn_add={false}/>
+            <div className='detail_container'>
+                <div className='title'>{post.title}</div>
+                <div className='userName'>{post.userName}</div>
+                <hr></hr>
+                <img 
+                    alt=""
+                    src='https://media.karousell.com/media/photos/products/2021/12/11/cosmos_by_carl_sagan_1639214113_dea7378d.jpg'>
+                </img>
+                <div className='bookName'>{post.bookName}</div>
+                <div className='price'>{post.price} 원</div>
+                <div className='description'>{post.description}</div>
+                <div className='created_date'>{post.created_date}</div>
+                {authorId !== userId ? <></> : 
+                <div>
+                <Button 
+                    variant="warning"
+                    onClick={toEditHandler}>Edit
+                </Button>
+                <Button 
+                    variant="danger"
+                    onClick={deleteHandler}>Delete
+                </Button>
+            </div>}
+            </div>
         </div>
         
     )

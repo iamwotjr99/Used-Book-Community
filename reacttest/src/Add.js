@@ -12,6 +12,8 @@ function Add() {
         type: "",
     });
 
+    const [imageSrc, setImageSrc] = useState(null);
+
     const onChange = (e) => {
         setPost({
             ...post,
@@ -19,14 +21,26 @@ function Add() {
         })
     }
 
+    const encodeFileToBase64 = (fileBlob) => { 
+        const reader = new FileReader(); 
+        reader.readAsDataURL(fileBlob); 
+        return new Promise((resolve) => { 
+            reader.onload = () => { 
+                setImageSrc(reader.result); 
+                resolve(); 
+            }; 
+        }); 
+    };
+
+
     const AddHandler = () => {
-        console.log(post);
         axios.post('/add/post', {
             bookName: post.bookName,
             price: post.price,
             title: post.title,
             description: post.description,
             type: post.type,
+            image: post.image,
         }, { withCreadentials: true }).then((res) => {
             console.log(res);
         }).catch((err) => {
@@ -98,6 +112,20 @@ function Add() {
                                 value={post.description}
                             />
                         </Form.Group>
+                        <Form.Group className="mb-3" controlId="image">
+                            <Form.Label>image</Form.Label>
+                            <Form.Control 
+                                type="file"
+                                placeholder="select your image"
+                                name="image"
+                                onChange={(e) => {
+                                    encodeFileToBase64(e.target.files[0]);
+                                }}
+                            />
+                        </Form.Group>
+                        <div className="preview">
+                            {imageSrc && <img src={imageSrc} alt="preview_img"/>}
+                        </div>
                     </Form>
                     <div>
                         <Button 

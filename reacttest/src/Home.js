@@ -7,18 +7,24 @@ function Home(props) {
     const [postList, setPostList] = useState([]);
 
     useEffect(() => {
-        axios.get('/userinfo').then((res) => {
-            console.log(res);
-            setUserName(res.data.userName);
-        }).catch((err) => {
-            console.log(err);
-        });
-        axios.get('/get/posts').then((res) => {
-            console.log(res.data.PostList);
-            setPostList(res.data.PostList);
-        }).catch((err) => {
-            console.log(err);
-        })
+        async function getUserInfo() {
+            await axios.get('/userinfo').then((res) => {
+                console.log(res);
+                setUserName(res.data.userName);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        async function getPosts() {
+            await axios.get('/get/posts').then((res) => {
+                console.log(res.data.PostList);
+                setPostList(res.data.PostList);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        getUserInfo();
+        getPosts();
     }, []);
 
     return (

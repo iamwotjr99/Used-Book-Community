@@ -22,7 +22,7 @@ function PostList({postList}) {
                 <div className="description_wrapper" data_id={item._id}>
                     {item.description}
                 </div>
-                <div className="tiem_name_wrapper" data_id={item._id}>
+                <div className="time_name_wrapper" data_id={item._id}>
                     {item.userName} | {item.created_data}
                 </div>
             </div>

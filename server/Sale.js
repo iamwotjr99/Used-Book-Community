@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import User from './User.js';
+
 const SalesSchema = new mongoose.Schema({
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     userID: String,

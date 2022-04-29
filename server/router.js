@@ -4,7 +4,24 @@ import Sale from './Sale.js';
 import bcrypt from 'bcrypt';
 import jwtMiddleware from './lib/src/jwtMiddelware.js';
 import mongoose from 'mongoose';
+import fs from 'fs';
+import path from 'path';
+import multer from 'multer';
 const router = express.Router();
+
+const __dirname = path.resolve();
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now());
+    }
+});
+
+const upload = multer({storage: storage});
 
 await mongoose.connect('mongodb+srv://iamwotjr:asd98048@cluster0.bh5jf.mongodb.net/MongoDBTest?retryWrites=true&w=majority')
     .then(() => {
@@ -115,7 +132,6 @@ router.get('/userinfo', jwtMiddleware, (req, res) => {
 // add book post data
 router.post('/add/post', jwtMiddleware, async (req, res) => {
     const {bookName, price, title, description, type} = req.body;
-
     // jwtMiddleware valid check
 
     // Sale reference(user) is id
@@ -151,8 +167,8 @@ router.get('/get/postinfo', jwtMiddleware, async (req, res) => {
     console.log(data);
     
     res.send({
-        userName: data.userName, bookName: data.bookName, 
-        price: data.price, title: data.title, 
+        authorId: data.user, userName: data.userName, bookName: data.bookName, 
+        price: data.price, title: data.title, type: data.type,
         description: data.description, created_date: data.created_date, 
         success:"OK"}
     );
@@ -161,5 +177,21 @@ router.get('/get/postinfo', jwtMiddleware, async (req, res) => {
 router.delete('/delete/post', jwtMiddleware, async (req, res) => {
     await Sale.deleteOne({_id: req.query.postId})
     res.send({message: "Delete success!"});
+})
+
+router.put('/edit/post', jwtMiddleware, (req, res) => {
+    Sale.findOneAndUpdate({_id: req.body.params.postId}, 
+        {bookName: req.body.params.data.bookName,
+        price: req.body.params.data.price,
+        title: req.body.params.data.title,
+        description: req.body.params.data.description,
+        type: req.body.params.data.type}).exec(function(err, result) {
+            if(err) {
+                console.log(err);
+                res.status(500).send(err);
+            } else {
+                res.status(200).send(result);
+            }
+        });
 })
 export default router;

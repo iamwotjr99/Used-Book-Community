@@ -4,7 +4,7 @@ function Nav({auth, setIsAuth, btn_back, btn_logout, btn_add}) {
     const navigate = useNavigate();
 
     const logoutHandler = () => {
-        axios.get("logout")
+        axios.get("/logout")
         .then((res) => {
             console.log(res);
             setIsAuth("");
